@@ -43,3 +43,6 @@ header nav{gap:21px;font-size:13px}.nav-shell{gap:20px}.nav-shell .brand img{wid
 @media(prefers-reduced-motion:reduce){.specialty-card,.specialty-card h3 .specialty-toggle,.tech-plus,.tech-gallery img{transition:none}.specialty-card-body{animation:none}}
 @media(max-width:600px){.hero{display:flex;flex-direction:column;justify-content:flex-end;min-height:790px}.hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:58% center;z-index:-3}.hero-shade{display:block;z-index:-2;background:linear-gradient(0deg,rgba(246,249,248,.99) 0%,rgba(246,249,248,.98) 56%,rgba(246,249,248,.58) 77%,rgba(246,249,248,.05) 100%)}.hero-content{padding-block:220px 70px}.hero h1{font-size:clamp(33px,9.3vw,45px)}.hero-copy{line-height:1.52}.hero .photo-label{display:none}}
 .tech-gallery:empty{display:none}.tech-gallery:empty + .tech-menu{grid-column:1/-1;max-width:850px}
+
+/* Encuadre del acceso principal: la puerta 104 queda fuera del hero. */
+@media(min-width:601px){.hero-image{width:114%;max-width:none;object-position:left 20%}}

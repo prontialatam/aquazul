@@ -46,3 +46,10 @@ header nav{gap:21px;font-size:13px}.nav-shell{gap:20px}.nav-shell .brand img{wid
 
 /* Encuadre del acceso principal: la puerta 104 queda fuera del hero. */
 @media(min-width:601px){.hero-image{width:114%;max-width:none;object-position:left 20%}}
+
+@media(max-width:600px){
+  .hero{display:block;min-height:0;background:var(--paper)}
+  .hero-image{position:relative;inset:auto;display:block;width:100%;height:clamp(245px,78vw,320px);object-fit:cover;object-position:60% 40%;z-index:auto}
+  .hero-shade{display:none}
+  .hero-content{padding-block:40px 58px}
+}

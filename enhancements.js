@@ -91,7 +91,7 @@ if (techCarousel) {
       slide.setAttribute('aria-hidden', String(i !== current));
     });
     dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === current)));
-    count.textContent = `${String(current + 1).padStart(2, '0')} / 03`;
+    count.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   }
   function syncTechTimer() {
     clearInterval(timer);

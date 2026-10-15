@@ -153,3 +153,8 @@ header nav{gap:21px;font-size:13px}.nav-shell{gap:20px}.nav-shell .brand img{wid
 .specialty-photo-note a{text-decoration:underline;text-underline-offset:2px}
 @media(max-width:600px){.specialty-card summary{padding:0}.specialty-card-top{padding:22px 24px 0}.specialty-card h3,.specialty-card summary>p{padding-inline:24px}.specialty-card .specialty-open{margin-inline:24px}}
 @media(prefers-reduced-motion:reduce){.specialty-media img{transition:none}.specialty-card:hover .specialty-media img{transform:none}}
+
+/* Fotografía de la especialidad en cada página individual. */
+.specialty-page-photo{flex:none;width:min(39%,420px);aspect-ratio:2.15;margin:0;overflow:hidden;background:#dce9e5}
+.specialty-page-photo img{display:block;width:100%;height:100%;object-fit:cover}
+@media(max-width:600px){.specialty-page-head{align-items:stretch;flex-direction:column}.specialty-page-photo{width:100%;margin-top:12px}}

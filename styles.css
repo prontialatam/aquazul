@@ -119,3 +119,22 @@ header nav{gap:21px;font-size:13px}.nav-shell{gap:20px}.nav-shell .brand img{wid
 @media(max-width:360px){.study-tile{min-height:176px}.study-tile-title{font-size:13px}.study-tile--wide{min-height:112px}.study-tile--wide .study-tile-title{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.hero-media .hero-image,.study-tile,.case-card{transition:none}.study-description.refresh{animation:none}}
 @media(min-width:601px){.study-tile:not(.study-tile--wide){min-height:190px}}
+
+/* Carrusel de fotografías reales de Tecnología. */
+.tech-carousel{min-width:0;max-width:650px}
+.tech-carousel-stage{position:relative;aspect-ratio:3/4;overflow:hidden;background:#dce9e5}
+.tech-slide{position:absolute;inset:0;margin:0;opacity:0;z-index:1;pointer-events:none;transition:opacity 1.05s ease-in-out}
+.tech-slide.is-active{opacity:1;z-index:2;pointer-events:auto}
+.tech-slide img{width:100%;height:100%;object-fit:contain}
+.tech-slide figcaption{position:absolute;left:0;right:0;bottom:0;padding:65px 22px 20px;background:linear-gradient(transparent,rgba(9,39,49,.78));color:white;font:13px/1.4 Arial,sans-serif}
+.tech-carousel-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding-top:17px}
+#tech-count{color:var(--muted);font:11px/1 Arial,sans-serif;letter-spacing:.15em;white-space:nowrap}
+.tech-carousel-dots{display:flex;align-items:center;justify-content:center;gap:8px}
+.tech-carousel-dots button{width:9px;height:9px;min-width:9px;padding:0;border:0;border-radius:100px;background:#aac8c1;transition:width .25s,background .25s}
+.tech-carousel-dots button[aria-current=true]{width:25px;background:var(--teal)}
+.tech-carousel-controls{display:flex;align-items:center;gap:5px}
+.tech-carousel-controls button{height:34px;min-width:34px;border:1px solid #abcac2;border-radius:50%;background:transparent;font:18px/1 Arial,sans-serif;color:var(--ink);cursor:pointer}
+.tech-carousel-controls button:hover{background:#e0eeea}
+.tech-carousel-controls #tech-toggle{border-radius:100px;padding:0 10px;font:11px/1 Arial,sans-serif}
+@media(max-width:800px){.tech-carousel{width:100%;max-width:580px;margin-inline:auto}}
+@media(prefers-reduced-motion:reduce){.tech-slide,.tech-carousel-dots button{transition:none}#tech-toggle{display:none}}

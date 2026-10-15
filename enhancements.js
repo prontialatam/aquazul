@@ -73,6 +73,53 @@ document.querySelector('.study-grid').addEventListener('keydown', event => {
   chooseStudy(next);
   studyTiles[selectedStudy].focus();
 });
+const techCarousel = document.querySelector('.tech-carousel');
+if (techCarousel) {
+  const slides = [...techCarousel.querySelectorAll('.tech-slide')];
+  const dots = [...techCarousel.querySelectorAll('[data-tech-slide]')];
+  const toggle = techCarousel.querySelector('#tech-toggle');
+  const count = techCarousel.querySelector('#tech-count');
+  let current = 0;
+  let timer;
+  let userPaused = false;
+  let hovered = false;
+  let focused = false;
+  function showTech(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-active', i === current);
+      slide.setAttribute('aria-hidden', String(i !== current));
+    });
+    dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === current)));
+    count.textContent = `${String(current + 1).padStart(2, '0')} / 03`;
+  }
+  function syncTechTimer() {
+    clearInterval(timer);
+    if (userPaused || hovered || focused || document.hidden || motionPreference.matches || slides.some(slide => !slide.querySelector('img').complete || !slide.querySelector('img').naturalWidth)) return;
+    timer = setInterval(() => showTech(current + 1), 5600);
+  }
+  slides.forEach(slide => slide.querySelector('img').addEventListener('load', syncTechTimer, {once: true}));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => {showTech(i); syncTechTimer();}));
+  techCarousel.querySelector('#tech-prev').addEventListener('click', () => {showTech(current - 1); syncTechTimer();});
+  techCarousel.querySelector('#tech-next').addEventListener('click', () => {showTech(current + 1); syncTechTimer();});
+  toggle.addEventListener('click', () => {
+    userPaused = !userPaused;
+    toggle.textContent = userPaused ? 'Reproducir' : 'Pausar';
+    toggle.setAttribute('aria-label', userPaused ? 'Reanudar carrusel' : 'Pausar carrusel');
+    syncTechTimer();
+  });
+  techCarousel.addEventListener('mouseenter', () => {hovered = true; syncTechTimer();});
+  techCarousel.addEventListener('mouseleave', () => {hovered = false; syncTechTimer();});
+  techCarousel.addEventListener('focusin', () => {focused = true; syncTechTimer();});
+  techCarousel.addEventListener('focusout', event => {
+    if (techCarousel.contains(event.relatedTarget)) return;
+    focused = false;
+    syncTechTimer();
+  });
+  document.addEventListener('visibilitychange', syncTechTimer);
+  motionPreference.addEventListener('change', syncTechTimer);
+  syncTechTimer();
+}
 const reviewTrack = document.querySelector('#review-track');
 const reviewSlides = [...reviewTrack.children];
 const reviewCounter = document.querySelector('#review-counter');

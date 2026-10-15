@@ -1,5 +1,27 @@
-const imagingStudies=[{"id": "tomografia", "title": "Tomografía dental 3D", "short": "Tomografía 3D", "copy": "Una perspectiva tridimensional para complementar la evaluación de tu odontólogo.", "detail": "Consulta la disponibilidad del estudio indicado en tu orden y los requisitos antes de tu visita."}, {"id": "escaner", "title": "Escáner intraoral", "short": "Escáner intraoral", "copy": "Una mirada digital de tu sonrisa.", "detail": "Consulta con el equipo cómo coordinar el escaneo solicitado por tu odontólogo."}, {"id": "radiografias", "title": "Radiografías panorámicas, carpal y de ATM", "short": "Panorámica · Carpal · ATM", "copy": "Diferentes estudios, en un mismo lugar.", "detail": "Indica al equipo cuál de estas radiografías aparece en tu orden para coordinar el estudio correspondiente."}, {"id": "lateral", "title": "Lateral de cráneo", "short": "Lateral de cráneo", "copy": "Otra perspectiva para tu valoración.", "detail": "Comparte con el equipo el nombre del estudio solicitado por tu odontólogo y consulta la preparación necesaria."}];
+const imagingStudies=[{"title": "Tomografía CBCT 3D", "copy": "Una vista tridimensional que complementa la valoración indicada por tu odontólogo.", "detail": "Consulta con el equipo los requisitos del estudio solicitado antes de tu visita.", "image": "tomografia.webp"}, {"title": "Radiografía panorámica digital", "copy": "Una imagen general de dientes y estructuras maxilofaciales en un solo estudio.", "detail": "Comparte la orden de tu odontólogo para confirmar el estudio indicado.", "image": "radiografias.webp"}, {"title": "Radiografía lateral de cráneo", "copy": "Una proyección lateral utilizada cuando tu odontólogo necesita evaluar relaciones craneofaciales.", "detail": "El equipo te indicará cómo coordinarla y qué debes llevar.", "image": "lateral.webp"}, {"title": "Radiografías AP/PA", "copy": "Proyecciones desde distintas direcciones según la evaluación solicitada.", "detail": "Confirma con el equipo cuál de las proyecciones aparece en tu orden.", "image": "radiografias.webp"}, {"title": "Radiografía carpal", "copy": "Un estudio de la mano que puede apoyar determinadas evaluaciones de crecimiento.", "detail": "Consulta con el equipo las indicaciones de tu profesional antes de acudir.", "image": "radiografias.webp"}, {"title": "Modelos digitales y servicios complementarios disponibles", "copy": "Registros digitales y otros recursos que pueden apoyar el diagnóstico y la planificación.", "detail": "Pregunta por la disponibilidad y el tipo de registro que necesitas.", "image": "escaner.webp"}, {"title": "Informes radiológicos", "copy": "Documentación de los hallazgos de los estudios realizados, cuando corresponde.", "detail": "Consulta el alcance y el plazo de entrega del informe con el equipo.", "image": "radiografias.webp"}];
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+const heroFrames = [...document.querySelectorAll('.hero-media .hero-image')];
+if (heroFrames.length === 2) {
+  let heroIndex = 0;
+  let heroTimer;
+  function resetHero() {
+    clearInterval(heroTimer);
+    heroIndex = 0;
+    heroFrames.forEach((frame, index) => frame.classList.toggle('is-active', index === 0));
+  }
+  function startHero() {
+    resetHero();
+    if (motionPreference.matches || !heroFrames[1].complete || !heroFrames[1].naturalWidth) return;
+    heroTimer = setInterval(() => {
+      if (document.hidden) return;
+      heroIndex = (heroIndex + 1) % heroFrames.length;
+      heroFrames.forEach((frame, index) => frame.classList.toggle('is-active', index === heroIndex));
+    }, 6200);
+  }
+  if (heroFrames[1].complete) startHero();
+  else heroFrames[1].addEventListener('load', startHero, {once: true});
+  motionPreference.addEventListener('change', startHero);
+}
 const photoDialog = document.querySelector('#photo-dialog');
 let photoTrigger;
 document.querySelectorAll('[data-photo]').forEach(link => {
@@ -26,14 +48,18 @@ function chooseStudy(index) {
   selectedStudy = (index + imagingStudies.length) % imagingStudies.length;
   const study = imagingStudies[selectedStudy];
   studyTiles.forEach((tile, i) => tile.setAttribute('aria-pressed', String(i === selectedStudy)));
-  document.querySelector('#study-index').textContent = `0${selectedStudy + 1} / 04`;
+  document.querySelector('#study-index').textContent = `${String(selectedStudy + 1).padStart(2, '0')} / 07`;
   document.querySelector('#study-title').textContent = study.title;
   document.querySelector('#study-copy').textContent = study.copy;
   document.querySelector('#study-description').textContent = study.detail;
+  const studyImage = document.querySelector('#study-image');
+  const nextImage = `assets/${study.image}`;
+  if (!studyImage.src.endsWith(nextImage)) studyImage.src = nextImage;
+  studyImage.alt = `Imagen ilustrativa relacionada con ${study.title.toLowerCase()}`;
   document.querySelector('#study-contact').href = 'https://wa.me/18097707289?text=' + encodeURIComponent(`Hola, quisiera información sobre ${study.title.toLowerCase()} en Aqua Imágenes.`);
   const panel = document.querySelector('.study-description');
   panel.classList.remove('refresh');
-  requestAnimationFrame(() => panel.classList.add('refresh'));
+  if (!motionPreference.matches) requestAnimationFrame(() => panel.classList.add('refresh'));
 }
 studyTiles.forEach((tile, index) => tile.addEventListener('click', () => chooseStudy(index)));
 document.querySelector('#study-prev').addEventListener('click', () => chooseStudy(selectedStudy - 1));

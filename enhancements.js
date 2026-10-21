@@ -46,17 +46,17 @@ const studyTiles = [...document.querySelectorAll('[data-study]')];
 let selectedStudy = 0;
 function chooseStudy(index) {
   selectedStudy = (index + imagingStudies.length) % imagingStudies.length;
-  const study = imagingStudies[selectedStudy];
+  const study = (aqEnglish ? aqStudiesEN : imagingStudies)[selectedStudy];
   studyTiles.forEach((tile, i) => tile.setAttribute('aria-pressed', String(i === selectedStudy)));
   document.querySelector('#study-index').textContent = `${String(selectedStudy + 1).padStart(2, '0')} / 07`;
   document.querySelector('#study-title').textContent = study.title;
   document.querySelector('#study-copy').textContent = study.copy;
   document.querySelector('#study-description').textContent = study.detail;
   const studyImage = document.querySelector('#study-image');
-  const nextImage = `assets/${study.image}`;
-  if (!studyImage.src.endsWith(nextImage)) studyImage.src = nextImage;
-  studyImage.alt = `Imagen ilustrativa relacionada con ${study.title.toLowerCase()}`;
-  document.querySelector('#study-contact').href = 'https://wa.me/18097707289?text=' + encodeURIComponent(`Hola, quisiera información sobre ${study.title.toLowerCase()} en Aqua Imágenes.`);
+  const nextImage = new URL(study.image, aqAssets).href;
+  if (studyImage.src !== nextImage) studyImage.src = nextImage;
+  studyImage.alt = aqEnglish ? `Illustrative image related to ${study.title.toLowerCase()}` : `Imagen ilustrativa relacionada con ${study.title.toLowerCase()}`;
+  document.querySelector('#study-contact').href = 'https://wa.me/18097707289?text=' + encodeURIComponent(aqEnglish ? `Hello, I would like information about ${study.title.toLowerCase()} at Aqua Imágenes.` : `Hola, quisiera información sobre ${study.title.toLowerCase()} en Aqua Imágenes.`);
   const panel = document.querySelector('.study-description');
   panel.classList.remove('refresh');
   if (!motionPreference.matches) requestAnimationFrame(() => panel.classList.add('refresh'));
@@ -104,8 +104,8 @@ if (techCarousel) {
   techCarousel.querySelector('#tech-next').addEventListener('click', () => {showTech(current + 1); syncTechTimer();});
   toggle.addEventListener('click', () => {
     userPaused = !userPaused;
-    toggle.textContent = userPaused ? 'Reproducir' : 'Pausar';
-    toggle.setAttribute('aria-label', userPaused ? 'Reanudar carrusel' : 'Pausar carrusel');
+    toggle.textContent = userPaused ? aqText.play : aqText.pause;
+    toggle.setAttribute('aria-label', userPaused ? aqText.resume : aqText.pauseCarousel);
     syncTechTimer();
   });
   techCarousel.addEventListener('mouseenter', () => {hovered = true; syncTechTimer();});

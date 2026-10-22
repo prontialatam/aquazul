@@ -130,8 +130,8 @@ def enhance(html, page, language):
         html = html.replace('</div></header>', switch + '</div></header>', 1)
     html = re.sub(r'<link\b(?=[^>]*(?:rel="canonical"|hreflang=))[^>]*>', '', html)
     path = '' if page.name == 'index.html' else 'especialidades/' + page.name
-    es_url = 'https://aquazul.prontialatam.com/' + path
-    en_url = 'https://aquazul.prontialatam.com/en/' + path
+    es_url = 'https://aquazulcod.com/' + path
+    en_url = 'https://aquazulcod.com/en/' + path
     canonical = en_url if language == 'en' else es_url
     meta = f'<link rel="canonical" href="{canonical}"><link rel="alternate" hreflang="es" href="{es_url}"><link rel="alternate" hreflang="en" href="{en_url}"><link rel="alternate" hreflang="x-default" href="{es_url}">'
     html = re.sub(r'<script src="[^"]*language\.js" defer></script>', '', html)

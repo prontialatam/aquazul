@@ -123,30 +123,90 @@ if (techCarousel) {
 const reviewTrack = document.querySelector('#review-track');
 const reviewSlides = [...reviewTrack.children];
 const reviewCounter = document.querySelector('#review-counter');
+const reviewToggle = document.querySelector('#review-toggle');
+const reviewCarousel = document.querySelector('.review-carousel');
 let reviewIndex = 0;
-function showReview(index) {
+let reviewPaused = false;
+let reviewVisible = false;
+let reviewTimer;
+let reviewHovered = false;
+let reviewFocused = false;
+function syncReviewTimer() {
+  clearInterval(reviewTimer);
+  reviewToggle.hidden = motionPreference.matches;
+  if (motionPreference.matches) reviewTrack.scrollTo({left: reviewSlides[reviewIndex].offsetLeft - reviewSlides[0].offsetLeft, behavior: 'instant'});
+  reviewToggle.textContent = reviewPaused ? aqText.play : aqText.pause;
+  reviewToggle.setAttribute('aria-label', aqEnglish ? (reviewPaused ? 'Play review slideshow' : 'Pause review slideshow') : (reviewPaused ? 'Reproducir carrusel de opiniones' : 'Pausar carrusel de opiniones'));
+  reviewCounter.setAttribute('aria-live', reviewPaused || motionPreference.matches ? 'polite' : 'off');
+  if (reviewPaused || !reviewVisible || reviewHovered || reviewFocused || document.hidden || motionPreference.matches || reviewSlides.length < 2) return;
+  reviewTimer = setInterval(() => showReview(reviewIndex + 1), 7000);
+}
+function showReview(index, manual = false) {
   reviewIndex = (index + reviewSlides.length) % reviewSlides.length;
   const offset = reviewSlides[reviewIndex].offsetLeft - reviewSlides[0].offsetLeft;
   reviewTrack.scrollTo({left: offset, behavior: motionPreference.matches ? 'instant' : 'smooth'});
   reviewCounter.textContent = `${reviewIndex + 1} / ${reviewSlides.length}`;
+  if (manual) {reviewPaused = true; syncReviewTimer();}
 }
-document.querySelector('#review-prev').addEventListener('click', () => showReview(reviewIndex - 1));
-document.querySelector('#review-next').addEventListener('click', () => showReview(reviewIndex + 1));
+document.querySelector('#review-prev').addEventListener('click', () => showReview(reviewIndex - 1, true));
+document.querySelector('#review-next').addEventListener('click', () => showReview(reviewIndex + 1, true));
+reviewToggle.addEventListener('click', () => {reviewPaused = !reviewPaused; syncReviewTimer();});
 reviewTrack.addEventListener('keydown', event => {
   if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
   event.preventDefault();
-  showReview(reviewIndex + (event.key === 'ArrowRight' ? 1 : -1));
+  showReview(reviewIndex + (event.key === 'ArrowRight' ? 1 : -1), true);
 });
 let reviewScrollTimer;
 reviewTrack.addEventListener('scroll', () => {
   clearTimeout(reviewScrollTimer);
   reviewScrollTimer = setTimeout(() => {
-    const max = reviewTrack.scrollWidth - reviewTrack.clientWidth;
-    if (reviewTrack.scrollLeft >= max - 2) reviewIndex = reviewSlides.length - 1;
-    else reviewIndex = reviewSlides.reduce((best, slide, i) => Math.abs(slide.offsetLeft - reviewSlides[0].offsetLeft - reviewTrack.scrollLeft) < Math.abs(reviewSlides[best].offsetLeft - reviewSlides[0].offsetLeft - reviewTrack.scrollLeft) ? i : best, 0);
+    reviewIndex = reviewSlides.reduce((best, slide, i) => Math.abs(slide.offsetLeft - reviewSlides[0].offsetLeft - reviewTrack.scrollLeft) < Math.abs(reviewSlides[best].offsetLeft - reviewSlides[0].offsetLeft - reviewTrack.scrollLeft) ? i : best, 0);
     reviewCounter.textContent = `${reviewIndex + 1} / ${reviewSlides.length}`;
   }, 130);
 }, {passive: true});
+let reviewDrag;
+reviewTrack.addEventListener('pointerdown', event => {
+  if (event.pointerType !== 'mouse') {reviewPaused = true; syncReviewTimer(); return;}
+  if (event.button !== 0 || event.target.closest('a,button')) return;
+  reviewDrag = {x: event.clientX, left: reviewTrack.scrollLeft, id: event.pointerId, moved: false};
+});
+reviewTrack.addEventListener('pointermove', event => {
+  if (!reviewDrag) return;
+  const delta = event.clientX - reviewDrag.x;
+  if (Math.abs(delta) > 8 && !reviewDrag.moved) {
+    reviewDrag.moved = true;
+    reviewPaused = true;
+    syncReviewTimer();
+    reviewTrack.setPointerCapture(reviewDrag.id);
+    reviewTrack.classList.add('is-dragging');
+    getSelection()?.removeAllRanges();
+  }
+  if (reviewDrag.moved) {event.preventDefault(); reviewTrack.scrollLeft = reviewDrag.left - delta;}
+});
+function endReviewDrag() {
+  if (!reviewDrag) return;
+  const moved = reviewDrag.moved;
+  reviewDrag = null;
+  reviewTrack.classList.remove('is-dragging');
+  if (moved) {
+    const index = reviewSlides.reduce((best, slide, i) => Math.abs(slide.offsetLeft - reviewSlides[0].offsetLeft - reviewTrack.scrollLeft) < Math.abs(reviewSlides[best].offsetLeft - reviewSlides[0].offsetLeft - reviewTrack.scrollLeft) ? i : best, 0);
+    showReview(index, true);
+  }
+}
+reviewTrack.addEventListener('pointerup', endReviewDrag);
+reviewTrack.addEventListener('pointercancel', endReviewDrag);
+reviewTrack.addEventListener('pointerleave', () => {if (reviewDrag && !reviewDrag.moved) reviewDrag = null;});
+reviewCarousel.addEventListener('mouseenter', () => {reviewHovered = true; syncReviewTimer();});
+reviewCarousel.addEventListener('mouseleave', () => {reviewHovered = false; syncReviewTimer();});
+reviewCarousel.addEventListener('focusin', () => {reviewFocused = true; syncReviewTimer();});
+reviewCarousel.addEventListener('focusout', event => {if (!reviewCarousel.contains(event.relatedTarget)) {reviewFocused = false; syncReviewTimer();}});
+document.addEventListener('visibilitychange', syncReviewTimer);
+motionPreference.addEventListener('change', syncReviewTimer);
+if ('IntersectionObserver' in window) {
+  const reviewObserver = new IntersectionObserver(entries => {reviewVisible = entries[0].isIntersecting; syncReviewTimer();}, {threshold:.25});
+  reviewObserver.observe(reviewTrack);
+} else {reviewVisible = true;}
+syncReviewTimer();
 if (!motionPreference.matches && 'IntersectionObserver' in window) {
   const sections = document.querySelectorAll('main > section:not(.hero) > .wrap,main > section.wrap');
   const reveal = new IntersectionObserver(entries => entries.forEach(entry => {

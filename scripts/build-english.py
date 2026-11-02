@@ -109,7 +109,8 @@ def language_switch(page, language):
     if page.name == 'index.html':
         es, en = ('./', 'en/') if language == 'es' else ('../', './')
     else:
-        es, en = (page.name, '../en/especialidades/' + page.name) if language == 'es' else ('../../especialidades/' + page.name, page.name)
+        relative = page.relative_to(ROOT).as_posix()
+        es, en = (page.name, '../en/' + relative) if language == 'es' else ('../../' + relative, page.name)
     label = 'Idioma' if language == 'es' else 'Language'
     es_label = 'Ver sitio en español' if language == 'es' else 'View website in Spanish'
     active_es = ' aria-current="page"' if language == 'es' else ''
@@ -129,7 +130,7 @@ def enhance(html, page, language):
     else:
         html = html.replace('</div></header>', switch + '</div></header>', 1)
     html = re.sub(r'<link\b(?=[^>]*(?:rel="canonical"|hreflang=))[^>]*>', '', html)
-    path = '' if page.name == 'index.html' else 'especialidades/' + page.name
+    path = '' if page.name == 'index.html' else page.relative_to(ROOT).as_posix()
     es_url = 'https://aquazulcod.com/' + path
     en_url = 'https://aquazulcod.com/en/' + path
     canonical = en_url if language == 'en' else es_url
@@ -147,7 +148,7 @@ def enhance(html, page, language):
     return html
 
 
-for source in [ROOT / 'index.html', *sorted((ROOT / 'especialidades').glob('*.html'))]:
+for source in [ROOT / 'index.html', *sorted((ROOT / 'especialidades').glob('*.html')), *sorted((ROOT / 'legal').glob('*.html'))]:
     spanish = source.read_text()
     parser = EnglishHTML()
     parser.feed(spanish)
@@ -156,4 +157,4 @@ for source in [ROOT / 'index.html', *sorted((ROOT / 'especialidades').glob('*.ht
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(english)
     source.write_text(enhance(spanish, source, 'es'))
-print('Generated English home page and 8 specialty pages; ES / EN links added to both languages.')
+print('Generated English home, specialty and legal pages; ES / EN links updated.')

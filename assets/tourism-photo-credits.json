@@ -7,7 +7,8 @@
     "author": "giggel",
     "license": "CC BY 3.0",
     "license_url": "https://creativecommons.org/licenses/by/3.0",
-    "date": "2016-11-02"
+    "date": "2016-11-02",
+    "status": "replaced-2026-11-08"
   },
   {
     "key": "sdq",
@@ -110,5 +111,16 @@
       "turismo-adjunto-20261107-sdq-678.webp"
     ],
     "caption": "Fachada del Aeropuerto Internacional Las Américas"
+  },
+  {
+    "key": "lrm-provided-20261108",
+    "source": "Image supplied by the user for Aquazul",
+    "source_file": "codex-clipboard-219cbdc8-396f-4f30-884b-d1d86d2aad86.png",
+    "assets": [
+      "assets/turismo-lrm-adjunto-20261108-640.webp",
+      "assets/turismo-lrm-adjunto-20261108-738.webp"
+    ],
+    "caption": "Terminal del Aeropuerto Internacional de La Romana",
+    "status": "active"
   }
 ]

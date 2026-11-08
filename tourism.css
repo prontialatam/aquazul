@@ -43,9 +43,6 @@ html:has(.site-header) { scroll-padding-top: 160px; }
 .tourism-photo--banner > a { aspect-ratio: 2.6 / 1; }
 .tourism-photo--marina > a { aspect-ratio: 2 / 1; }
 .tourism-photo--banner img, .tourism-photo--marina img { height: 100%; object-fit: cover; }
-.tourism-photo figcaption { padding-top: 10px; font: 11px/1.7 Arial,sans-serif; color: var(--muted); overflow-wrap: anywhere; }
-.tourism-photo figcaption a { text-decoration: underline; text-underline-offset: 3px; }
-.tourism-photo-title { display: block; margin-bottom: 3px; color: var(--ink); font-size: 12px; }
 .tourism-plan-intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 45px; align-items: center; margin-bottom: 30px; }
 .tourism-plan-intro .tourism-panel-heading { margin-bottom: 0; }
 .tourism-photo--team { max-width: 340px; justify-self: end; margin-bottom: 0; }
@@ -67,7 +64,6 @@ html:has(.site-header) { scroll-padding-top: 160px; }
 .tourism-airport .tourism-photo { margin: 0 -25px 24px; }
 .tourism-photo--airport > a { aspect-ratio: 16 / 10; border-radius: 0; }
 .tourism-photo--airport img { height: 100%; object-fit: cover; }
-.tourism-airport .tourism-photo figcaption { min-height: 56px; padding: 10px 25px 0; }
 .airport-code { display: flex; gap: 12px; align-items: center; font: 14px/1.4 Arial,sans-serif; letter-spacing: .16em; color: var(--teal); margin-bottom: 28px; }
 .airport-code svg { width: 25px; height: 25px; }
 .tourism-airport > p { font: 14px/1.65 Arial,sans-serif; min-height: 47px; max-width: 270px; color: var(--muted); }
@@ -137,7 +133,6 @@ html:has(.site-header) { scroll-padding-top: 160px; }
   .tourism-tablist button { padding-inline: 11px; font-size: 13px; }
   .tourism-airport { padding-inline: 18px; }
   .tourism-airport .tourism-photo { margin-inline: -18px; }
-  .tourism-airport .tourism-photo figcaption { padding-inline: 18px; }
 }
 @media (max-width:900px) {
   .header-masthead { display: flex; flex-direction: column; gap: 10px; padding: 12px 0; }
@@ -177,7 +172,6 @@ html:has(.site-header) { scroll-padding-top: 160px; }
   .tourism-airports, .tourism-stay, .tourism-destination-grid, .tourism-money, .tourism-resort { grid-template-columns: 1fr; }
   .tourism-airport { padding: 25px 7px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 15px; }
   .tourism-airport .tourism-photo { grid-column: 1 / -1; margin: -25px -7px 24px; }
-  .tourism-airport .tourism-photo figcaption { padding-inline: 7px; }
   .tourism-airport + .tourism-airport { border-left: 0; border-top: 1px solid #b7ccc6; }
   .airport-code { grid-column: 1 / -1; margin-bottom: 18px; }
   .tourism-airport h4 { grid-column: 1; margin-bottom: 9px; }
@@ -209,4 +203,20 @@ html:has(.site-header) { scroll-padding-top: 160px; }
 .tourism-photo--provided:not(.tourism-photo--airport) > a { aspect-ratio: 16 / 9; }
 @media (prefers-reduced-motion:reduce) {
   .tourism-panel.is-current { animation: none; }
+}
+
+/* Compact guide photographs and a single, optional attribution disclosure. */
+.tourism .airport-plane-icon, .tourism .tourism-takeoff-icon { fill: currentColor; stroke: none; }
+.tourism-photo--lrm img { object-fit: contain; background: #e7eeec; }
+.tourism .tourism-photo--compact { width: min(100%,720px); margin: 0 auto 28px; }
+.tourism .tourism-photo--compact > a { aspect-ratio: 2.6 / 1; }
+.tourism-image-credits { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 14px; color: var(--muted); font: 12px/1.8 Arial,sans-serif; }
+.tourism-image-credits summary { width: fit-content; padding: 8px 0; cursor: pointer; }
+.tourism-image-credits > div { max-width: 850px; padding-top: 12px; }
+.tourism-image-credits ul { padding-left: 20px; }
+.tourism-image-credits a { text-decoration: underline; text-underline-offset: 3px; }
+.tourism-image-credits p { font: inherit; margin: 12px 0; }
+@media (max-width:650px) {
+  .tourism .tourism-photo--compact { width: 88%; margin-bottom: 24px; }
+  .tourism .tourism-photo--compact > a { aspect-ratio: 16 / 9; }
 }

@@ -17,7 +17,8 @@
     "author": "-wuppertaler",
     "license": "CC BY 4.0",
     "license_url": "https://creativecommons.org/licenses/by/4.0",
-    "date": "2024-05-04 18:36:27"
+    "date": "2024-05-04 18:36:27",
+    "status": "replaced-2026-11-07"
   },
   {
     "key": "marina",
@@ -27,7 +28,8 @@
     "author": "Sergiy Galyonkin",
     "license": "CC BY-SA 2.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
-    "date": "2022-02-23 16:18"
+    "date": "2022-02-23 16:18",
+    "status": "replaced-2026-11-07"
   },
   {
     "key": "town",
@@ -57,7 +59,8 @@
     "author": "lazyweaver",
     "license": "CC BY 3.0",
     "license_url": "https://creativecommons.org/licenses/by/3.0",
-    "date": "Taken on 18 June 2014"
+    "date": "Taken on 18 June 2014",
+    "status": "replaced-2026-11-07"
   },
   {
     "key": "puj",
@@ -74,5 +77,38 @@
     "title": "Dr. Víctor E. Lappost E. y Dra. Juliana Rodríguez",
     "source": "Fotografía facilitada por Aquazul, ya publicada en Equipo",
     "asset": "team-victor-juliana-full.webp"
+  },
+  {
+    "key": "marina-provided-20261107",
+    "status": "active",
+    "source": "Image supplied by the user for Aquazul",
+    "source_file": "Boho Chic Casa de Campo.png",
+    "assets": [
+      "turismo-adjunto-20261107-marina-640.webp",
+      "turismo-adjunto-20261107-marina-1440.webp"
+    ],
+    "caption": "Casa de Campo · imagen de ambientación"
+  },
+  {
+    "key": "climate-provided-20261107",
+    "status": "active",
+    "source": "Image supplied by the user for Aquazul",
+    "source_file": "IMG_1429.jpeg",
+    "assets": [
+      "turismo-adjunto-20261107-climate-640.webp",
+      "turismo-adjunto-20261107-climate-1440.webp"
+    ],
+    "caption": "Paisaje de playa"
+  },
+  {
+    "key": "sdq-provided-20261107",
+    "status": "active",
+    "source": "Image supplied by the user for Aquazul",
+    "source_file": "codex-clipboard-6c2d012a-699f-4092-b207-c4b55c173107.png",
+    "assets": [
+      "turismo-adjunto-20261107-sdq-640.webp",
+      "turismo-adjunto-20261107-sdq-678.webp"
+    ],
+    "caption": "Fachada del Aeropuerto Internacional Las Américas"
   }
 ]

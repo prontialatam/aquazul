@@ -27,8 +27,10 @@
   function clearAnalyticsCookies() {
     document.cookie.split(';').forEach(entry => {
       const name = entry.trim().split('=')[0];
-      if (!/^_ga(?:_|$)/.test(name)) return;
-      for (const domain of ['', location.hostname, '.' + location.hostname]) {
+      if (name !== '_ga' && name !== '_ga_' + id.slice(2)) return;
+      const domains = ['', location.hostname, '.' + location.hostname];
+      if (location.hostname === 'aquazul.prontialatam.com') domains.push('prontialatam.com', '.prontialatam.com');
+      for (const domain of domains) {
         document.cookie = name + '=; Max-Age=0; Path=/; SameSite=Lax' + (domain ? '; Domain=' + domain : '');
       }
     });

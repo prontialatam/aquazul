@@ -220,3 +220,22 @@ html:has(.site-header) { scroll-padding-top: 160px; }
   .tourism .tourism-photo--compact { width: 88%; margin-bottom: 24px; }
   .tourism .tourism-photo--compact > a { aspect-ratio: 16 / 9; }
 }
+
+.tourism-apartments { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 44px; margin-bottom: 40px; }
+.tourism-apartment { min-width: 0; border-top: 1px solid #b7ccc6; padding-top: 24px; }
+.tourism .tourism-apartment h4 { font-size: clamp(29px,3vw,38px); margin-bottom: 22px; }
+.apartment-photos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-bottom: 24px; }
+.apartment-photo { min-width: 0; margin: 0; }
+.apartment-photo > a { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; background: #e4ece9; }
+.apartment-photo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.apartment-photo figcaption { padding-top: 9px; color: var(--muted); font: 12px/1.5 Arial,sans-serif; }
+.apartment-distance { font-size: 16px; color: var(--ink); }
+.apartment-description-note { font: 12px/1.6 Arial,sans-serif; color: var(--muted); margin: 0 0 12px; }
+.apartment-features { padding-left: 18px; margin: 0 0 22px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.apartment-features li + li { margin-top: 8px; }
+.apartment-contact { display: inline-block; min-height: 44px; padding-block: 9px; }
+#tourism-panel-estancia > .tourism-transfer { max-width: 900px; }
+@media (max-width:800px) {
+  .tourism-apartments { grid-template-columns: 1fr; gap: 34px; }
+  .apartment-photos { max-width: 600px; }
+}

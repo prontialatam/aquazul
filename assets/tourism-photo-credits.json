@@ -40,7 +40,8 @@
     "author": "Seibano17",
     "license": "CC BY-SA 4.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-    "date": "2023-06-03"
+    "date": "2023-06-03",
+    "status": "replaced-2026-11-12"
   },
   {
     "key": "destination",
@@ -50,7 +51,8 @@
     "author": "Mstyslav Chernov",
     "license": "CC BY-SA 3.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-    "date": "2011-01-17 02:14:25"
+    "date": "2011-01-17 02:14:25",
+    "status": "replaced-2026-11-12"
   },
   {
     "key": "climate",
@@ -121,6 +123,56 @@
       "assets/turismo-lrm-adjunto-20261108-738.webp"
     ],
     "caption": "Terminal del Aeropuerto Internacional de La Romana",
+    "status": "active"
+  },
+  {
+    "key": "vista-mar-1-provided-20261112",
+    "source": "Images supplied by the user for Aquazul",
+    "source_url": "https://drive.google.com/file/d/1jwH3Qu2mTcT2kgBxl0tZiewVidEx9Ho1/view",
+    "assets": [
+      "assets/turismo-vista-mar-1-20261112-480.webp",
+      "assets/turismo-vista-mar-1-20261112-817.webp"
+    ],
+    "status": "active"
+  },
+  {
+    "key": "vista-mar-2-provided-20261112",
+    "source": "Images supplied by the user for Aquazul",
+    "source_url": "https://drive.google.com/file/d/1LBrf_GOhWZlc39-rx61wyVo0TAk1-KVG/view",
+    "assets": [
+      "assets/turismo-vista-mar-2-20261112-480.webp",
+      "assets/turismo-vista-mar-2-20261112-1360.webp"
+    ],
+    "status": "active"
+  },
+  {
+    "key": "buena-vista-1-provided-20261112",
+    "source": "Images supplied by the user for Aquazul",
+    "source_url": "https://drive.google.com/file/d/1Gwc56cwC5Wu8CKgHPLx7uNhnMEU_F51Y/view",
+    "assets": [
+      "assets/turismo-buena-vista-1-20261112-480.webp",
+      "assets/turismo-buena-vista-1-20261112-962.webp"
+    ],
+    "status": "active"
+  },
+  {
+    "key": "buena-vista-2-provided-20261112",
+    "source": "Images supplied by the user for Aquazul",
+    "source_url": "https://drive.google.com/file/d/1aDIhct7n1hIPbyqlLb9iqq6wm4NIiOPx/view",
+    "assets": [
+      "assets/turismo-buena-vista-2-20261112-480.webp",
+      "assets/turismo-buena-vista-2-20261112-970.webp"
+    ],
+    "status": "active"
+  },
+  {
+    "key": "la-romana-provided-20261112",
+    "source": "Images supplied by the user for Aquazul",
+    "source_url": "User-provided La Romana.png",
+    "assets": [
+      "assets/turismo-la-romana-20261112-480.webp",
+      "assets/turismo-la-romana-20261112-1440.webp"
+    ],
     "status": "active"
   }
 ]

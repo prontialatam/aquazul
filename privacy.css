@@ -1,0 +1,17 @@
+.privacy-banner { position: fixed; z-index: 100; left: 50%; bottom: 18px; transform: translateX(-50%); width: min(760px,calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; background: var(--paper); color: var(--ink); border: 1px solid var(--line); padding: 24px; box-shadow: 0 8px 40px #173d4526; }
+.privacy-banner[hidden], [data-privacy-settings][hidden] { display: none; }
+.privacy-banner h2, .privacy-panel h2 { font: 400 28px/1.2 var(--font); margin: 0 0 12px; letter-spacing: -.02em; }
+.privacy-banner p, .privacy-panel p, .privacy-category { font: 14px/1.6 Arial,sans-serif; }
+.privacy-banner p { margin: 0 0 12px; }
+.privacy-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.privacy-links a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+.privacy-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.privacy-actions button { flex: 1; min-height: 44px; padding: 10px 16px; border: 1px solid var(--teal); background: var(--paper); color: var(--teal); font: 600 14px/1.4 Arial,sans-serif; }
+.privacy-actions button:hover { background: #e5eeeb; }
+.privacy-panel { width: min(580px,calc(100% - 32px)); padding: 48px 30px 30px; color: var(--ink); background: var(--paper); max-height: calc(100dvh - 32px); overflow-y: auto; border: 1px solid var(--line); }
+.privacy-panel::backdrop { background: #153a4266; }
+.privacy-close { position: absolute; right: 10px; top: 8px; width: 44px; height: 44px; border: 0; background: transparent; color: var(--ink); font: 28px Arial,sans-serif; }
+.privacy-category { display: flex; align-items: flex-start; gap: 12px; border-block: 1px solid var(--line); padding: 20px 0; margin: 20px 0; cursor: pointer; }
+.privacy-category input { flex-shrink: 0; width: 22px; height: 22px; accent-color: var(--teal); margin-top: 2px; }
+footer .privacy-settings { border: 0; padding: 10px 0; min-height: 44px; background: transparent; color: var(--teal); font: inherit; text-decoration: underline; text-underline-offset: 4px; }
+@media(max-width:600px) { .privacy-banner { bottom: 10px; padding: 20px; } .privacy-actions { display: grid; grid-template-columns: 1fr; } .privacy-panel { padding: 52px 22px 24px; } }
